@@ -1,19 +1,27 @@
 import React from 'react';
 import { useTracker } from 'meteor/react-meteor-data';
-import { LinksCollection } from '../api/links';
+import { SwimmersCollection } from '../api/swimmers';
+import { SwimEventsCollection } from '../api/swimEvents';
 
 export const Info = () => {
-  const links = useTracker(() => {
-    return LinksCollection.find().fetch();
+  const { swimmers, swimEvents } = useTracker(() => {
+    return {
+      swimmers: SwimmersCollection.find().fetch(),
+      swimEvents: SwimEventsCollection.find().fetch(),
+    }
   });
 
   return (
     <div>
-      <h2>Learn Meteor!</h2>
-      <ul>{links.map(
-        link => <li key={link._id}>
-          <a href={link.url} target="_blank">{link.title}</a>
-        </li>
+      <ul>{swimmers.map(
+        (swimmer) => (
+          <div key={swimmer._id}>{swimmer.name}</div>
+        )
+      )}</ul>
+      <ul>{swimEvents.map(
+        (swimEvent) => (
+          <div key={swimEvent._id}>{swimEvent.name}</div>
+        )
       )}</ul>
     </div>
   );
