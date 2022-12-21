@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useTracker } from 'meteor/react-meteor-data';
 import { SwimmersCollection } from '../api/swimmers';
 import { SwimEventsCollection } from '../api/swimEvents';
 import { SwimmerMeetEntriesCollection } from '../api/swimmerMeetEntries';
-import { Grid, Item } from '@mui/material';
+import { Grid } from '@mui/material';
 import Swimmers from './Swimmers.jsx';
 import SwimEvents from './SwimEvents.jsx';
 import SwimmerMeetEntries from './SwimmerMeetEntries.jsx';
