@@ -37,7 +37,6 @@ export default App = () => {
   return (
     <Grid container spacing={2}>
       <Grid item xs={6}>
-        <h2>Swimmers</h2>
         <Swimmers
           selectedSwimmer={selectedSwimmer}
           setSelectedSwimmer={(id) => setSelectedSwimmer(findSelectedSwimmer(id, swimmers))}
@@ -45,11 +44,9 @@ export default App = () => {
         />
       </Grid>
       <Grid item xs={6}>
-        <h2>Events</h2>
         <SwimEvents swimEvents={swimEvents} selectedSwimmer={selectedSwimmer} />
       </Grid>
       <Grid item xs={12}>
-        <h2>Entry Report</h2>
         <SwimmerMeetEntries
           swimmers={swimmers}
           swimEvents={swimEvents}

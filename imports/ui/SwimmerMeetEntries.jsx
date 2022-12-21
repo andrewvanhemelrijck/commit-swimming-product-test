@@ -33,49 +33,52 @@ export default SwimmerMeetEntries = ({ swimmers, swimEvents }) => {
   const meetEntriesToswimmerIdHashMap = mapMeetEntriesToSwimmerId(swimmers, swimmerMeetEntries);
 
   return (
-    <TableContainer>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell />
-            {swimEvents.map((swimEvent) => <TableCell key={swimEvent._id}><b>{swimEvent.name}</b></TableCell>)}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {swimmers.map((swimmer) => (
-            <TableRow key={swimmer._id}>
-              <TableCell><b>{swimmer.name}</b></TableCell>
-              {swimEvents.map((swimEvent) => (
-                <TableCell key={swimEvent._id}>
-                  {
-                    // if there is an entry for this event mapped to the user id show check, otherwise show add button
-                    Object.keys(meetEntriesToswimmerIdHashMap[swimmer._id])?.includes(swimEvent._id)
-                      ? (
-                        <IconButton
-                          onClick={() => SwimmerMeetEntriesCollection.remove(meetEntriesToswimmerIdHashMap[swimmer._id][swimEvent._id]._id)}
-                        >
-                          <Check />
-                        </IconButton>
-                      ) : (
-                        <IconButton
-                          onClick={() => {
-                            SwimmerMeetEntriesCollection.insert({
-                              swimmerId: swimmer._id,
-                              eventId: swimEvent._id,
-                              createdAt: new Date(),
-                            })
-                          }}
-                        >
-                          <AddCircleOutline />
-                        </IconButton>
-                      )
-                  }
-                </TableCell>
-              ))}
+    <>
+      <h2>Entry Report</h2>
+      <TableContainer>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell />
+              {swimEvents.map((swimEvent) => <TableCell key={swimEvent._id}><b>{swimEvent.name}</b></TableCell>)}
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {swimmers.map((swimmer) => (
+              <TableRow key={swimmer._id}>
+                <TableCell><b>{swimmer.name}</b></TableCell>
+                {swimEvents.map((swimEvent) => (
+                  <TableCell key={swimEvent._id}>
+                    {
+                      // if there is an entry for this event mapped to the user id show check, otherwise show add button
+                      Object.keys(meetEntriesToswimmerIdHashMap[swimmer._id])?.includes(swimEvent._id)
+                        ? (
+                          <IconButton
+                            onClick={() => SwimmerMeetEntriesCollection.remove(meetEntriesToswimmerIdHashMap[swimmer._id][swimEvent._id]._id)}
+                          >
+                            <Check />
+                          </IconButton>
+                        ) : (
+                          <IconButton
+                            onClick={() => {
+                              SwimmerMeetEntriesCollection.insert({
+                                swimmerId: swimmer._id,
+                                eventId: swimEvent._id,
+                                createdAt: new Date(),
+                              })
+                            }}
+                          >
+                            <AddCircleOutline />
+                          </IconButton>
+                        )
+                    }
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </>
   );
 }

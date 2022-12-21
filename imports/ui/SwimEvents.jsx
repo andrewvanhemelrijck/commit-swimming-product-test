@@ -52,7 +52,6 @@ const SwimEvent = ({ eventName, swimmerId, actionButtonIcon, onClick }) => (
 );
 
 export default SwimEvents = ({ swimEvents, selectedSwimmer }) => {
-  if (!selectedSwimmer) return <i>Select a swimmer</i>;
   const swimmerMeetEntries = useTracker(() => SwimmerMeetEntriesCollection.find({ swimmerId: selectedSwimmer?._id }).fetch());
 
   // in production or a more complex app, this should not be calculated every render (useEffect or useMemo)
@@ -60,40 +59,49 @@ export default SwimEvents = ({ swimEvents, selectedSwimmer }) => {
   const { entered, available } = sortEventsByEnteredStatus(swimEvents, Object.keys(swimmerMeetEntryToEventIdHashMap), );
 
   return (
-    <div>
-      <h3 style={{ margin: 0 }}>{selectedSwimmer?.name || ' '}</h3>
-      <List>
-        <ListSubheader disableGutters>Entered</ListSubheader>
-        {entered.map(
-          (swimEvent) => (
-            <SwimEvent
-              key={swimEvent._id}
-              eventName={swimEvent.name}
-              swimmerId={selectedSwimmer._id}
-              actionButtonIcon={<RemoveCircleOutline />}
-              onClick={() => SwimmerMeetEntriesCollection.remove(swimmerMeetEntryToEventIdHashMap[swimEvent._id])}
-            />
+    <>
+      <h2>Events</h2>
+      {
+        !selectedSwimmer
+          ? <i>Select a swimmer</i>
+          : (
+            <>
+              <h3 style={{ margin: 0 }}>{selectedSwimmer?.name || ' '}</h3>
+              <List>
+                <ListSubheader disableGutters>Entered</ListSubheader>
+                {entered.map(
+                  (swimEvent) => (
+                    <SwimEvent
+                      key={swimEvent._id}
+                      eventName={swimEvent.name}
+                      swimmerId={selectedSwimmer._id}
+                      actionButtonIcon={<RemoveCircleOutline />}
+                      onClick={() => SwimmerMeetEntriesCollection.remove(swimmerMeetEntryToEventIdHashMap[swimEvent._id])}
+                    />
+                  )
+                )}
+                <ListSubheader disableGutters>Available</ListSubheader>
+                {available.map(
+                  (swimEvent) => (
+                    <SwimEvent
+                      key={swimEvent._id}
+                      eventName={swimEvent.name}
+                      swimmerId={selectedSwimmer._id}
+                      actionButtonIcon={<AddCircleOutline />}
+                      onClick={() => {
+                        SwimmerMeetEntriesCollection.insert({
+                          swimmerId: selectedSwimmer._id,
+                          eventId: swimEvent._id,
+                          createdAt: new Date(),
+                        })
+                      }}
+                    />
+                  )
+                )}
+              </List>
+            </>
           )
-        )}
-        <ListSubheader disableGutters>Available</ListSubheader>
-        {available.map(
-          (swimEvent) => (
-            <SwimEvent
-              key={swimEvent._id}
-              eventName={swimEvent.name}
-              swimmerId={selectedSwimmer._id}
-              actionButtonIcon={<AddCircleOutline />}
-              onClick={() => {
-                SwimmerMeetEntriesCollection.insert({
-                  swimmerId: selectedSwimmer._id,
-                  eventId: swimEvent._id,
-                  createdAt: new Date(),
-                })
-              }}
-            />
-          )
-        )}
-      </List>
-    </div>
+      }
+    </>
   );
 };

@@ -6,17 +6,20 @@ export default Swimmers = ({
   setSelectedSwimmer,
   swimmers,
 }) => (
-  <List component="nav">
-    {swimmers.map(
-      (swimmer) => (
-        <ListItemButton
-          key={swimmer._id}
-          onClick={() => setSelectedSwimmer(swimmer._id)}
-          selected={swimmer._id === selectedSwimmer?._id}
-        >
-          {swimmer.name}
-        </ListItemButton>
-      )
-    )}
-  </List>
+  <>
+    <h2>Swimmers</h2>
+    <List component="nav">
+      {swimmers.map(
+        (swimmer) => (
+          <ListItemButton
+            key={swimmer._id}
+            onClick={() => setSelectedSwimmer(swimmer._id)}
+            selected={swimmer._id === selectedSwimmer?._id}
+          >
+            {swimmer.name}
+          </ListItemButton>
+        )
+      )}
+    </List>
+  </>
 );
