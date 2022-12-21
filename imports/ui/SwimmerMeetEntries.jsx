@@ -10,6 +10,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Typography,
 } from '@mui/material';
 import { Check, AddCircleOutline } from '@mui/icons-material';
 
@@ -36,7 +37,7 @@ export default SwimmerMeetEntries = ({ swimmers, swimEvents }) => {
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h2>Entry Report</h2>
+        <Typography variant="h5">Entry Report</Typography>
         <Button
           className="printHide"
           onClick={()=> window.print()}

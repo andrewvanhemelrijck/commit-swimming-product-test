@@ -7,6 +7,7 @@ import {
   ListItem,
   ListItemText,
   ListSubheader,
+  Typography
 } from '@mui/material';
 import { AddCircleOutline, RemoveCircleOutline } from '@mui/icons-material';
 
@@ -60,13 +61,18 @@ export default SwimEvents = ({ swimEvents, selectedSwimmer }) => {
 
   return (
     <>
-      <h2>Events</h2>
+      <Typography variant="h5" gutterBottom>Events</Typography>
       {
         !selectedSwimmer
-          ? <i>Select a swimmer</i>
-          : (
+          ? (
+            <Typography variant="body2" color="grey">
+              <i>Select a swimmer</i>
+            </Typography>
+          ) : (
             <>
-              <h3 style={{ margin: 0 }}>{selectedSwimmer?.name || ' '}</h3>
+              <Typography variant="subtitle1">
+                <b>{selectedSwimmer?.name || ' '}</b>
+              </Typography>
               <List>
                 <ListSubheader disableGutters>Entered</ListSubheader>
                 {entered.map(

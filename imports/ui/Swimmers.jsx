@@ -1,5 +1,9 @@
 import React from 'react';
-import { List, ListItemButton } from '@mui/material';
+import {
+  List,
+  ListItemButton,
+  Typography,
+} from '@mui/material';
 
 export default Swimmers = ({
   selectedSwimmer,
@@ -7,7 +11,7 @@ export default Swimmers = ({
   swimmers,
 }) => (
   <>
-    <h2>Swimmers</h2>
+    <Typography variant="h5">Swimmers</Typography>
     <List component="nav">
       {swimmers.map(
         (swimmer) => (
