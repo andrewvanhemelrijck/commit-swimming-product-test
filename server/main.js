@@ -1,31 +1,56 @@
 import { Meteor } from 'meteor/meteor';
-import { LinksCollection } from '/imports/api/links';
+import { SwimmersCollection } from '/imports/api/swimmers';
+import { SwimEventsCollection } from '/imports/api/swimEvents';
+import '/imports/api/swimmerMeetEntries';
 
-async function insertLink({ title, url }) {
-  await LinksCollection.insertAsync({ title, url, createdAt: new Date() });
+async function insertSwimmer({ name }) {
+  await SwimmersCollection.insertAsync({ name, createdAt: new Date() });
+}
+
+async function insertSwimEvent({ name }) {
+  await SwimEventsCollection.insertAsync({ name, createdAt: new Date() });
 }
 
 Meteor.startup(async () => {
-  // If the Links collection is empty, add some data.
-  if (await LinksCollection.find().countAsync() === 0) {
-    await insertLink({
-      title: 'Do the Tutorial',
-      url: 'https://www.meteor.com/tutorials/react/creating-an-app',
+  // If the Swimmers collection is empty, add some data.
+  if (await SwimmersCollection.find().countAsync() === 0) {
+    await insertSwimmer({
+      name: 'Swimmer1',
     });
 
-    await insertLink({
-      title: 'Follow the Guide',
-      url: 'https://guide.meteor.com',
+    await insertSwimmer({
+      name: 'Swimmer2',
     });
 
-    await insertLink({
-      title: 'Read the Docs',
-      url: 'https://docs.meteor.com',
+    await insertSwimmer({
+      name: 'Swimmer3',
     });
 
-    await insertLink({
-      title: 'Discussions',
-      url: 'https://forums.meteor.com',
+    await insertSwimmer({
+      name: 'Swimmer4',
+    });
+
+    await insertSwimmer({
+      name: 'Swimmer5',
+    });
+  }
+
+  // If the SwimEvents collection is empty, add some data.
+  if (await SwimEventsCollection.find().countAsync() === 0) {
+    await insertSwimEvent({
+      name: '100 Free',
+    });
+
+    await insertSwimEvent({
+      name: '100 Fly',
+    });
+
+    await insertSwimEvent({
+      name: '100 Breast',
+    });
+
+    await insertSwimEvent({
+      name: '100 Back',
     });
   }
 });
