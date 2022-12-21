@@ -55,7 +55,7 @@ export default SwimEvents = ({ swimEvents, selectedSwimmer }) => {
   if (!selectedSwimmer) return <i>Select a swimmer</i>;
   const swimmerMeetEntries = useTracker(() => SwimmerMeetEntriesCollection.find({ swimmerId: selectedSwimmer?._id }).fetch());
 
-  // in production or a more complex app, this should not be calculated every render
+  // in production or a more complex app, this should not be calculated every render (useEffect or useMemo)
   const swimmerMeetEntryToEventIdHashMap = mapSwimmerMeetEntriesToEventIds(swimmerMeetEntries);
   const { entered, available } = sortEventsByEnteredStatus(swimEvents, Object.keys(swimmerMeetEntryToEventIdHashMap), );
 

@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { SwimmersCollection } from '/imports/api/swimmers';
 import { SwimEventsCollection } from '/imports/api/swimEvents';
+import '/imports/api/swimmerMeetEntries';
 
 async function insertSwimmer({ name }) {
   await SwimmersCollection.insertAsync({ name, createdAt: new Date() });
@@ -10,7 +11,7 @@ async function insertSwimEvent({ name }) {
   await SwimEventsCollection.insertAsync({ name, createdAt: new Date() });
 }
 
-Meteor.startup(async () => {console.log('here', { sc: SwimmersCollection.find().fetch() } )
+Meteor.startup(async () => {
   // If the Swimmers collection is empty, add some data.
   if (await SwimmersCollection.find().countAsync() === 0) {
     await insertSwimmer({
