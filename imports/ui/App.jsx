@@ -35,24 +35,42 @@ export default App = () => {
   const [selectedSwimmer, setSelectedSwimmer] = useState();
   
   return (
-    <Grid container spacing={8}>
-      <Grid className="printHide" item style={{ minHeight: '24.25em' }} xs={6}>
-        <Swimmers
-          selectedSwimmer={selectedSwimmer}
-          setSelectedSwimmer={(id) => setSelectedSwimmer(findSelectedSwimmer(id, swimmers))}
-          swimmers={swimmers}
-        />
+    <div style={{ flexGrow: 1, margin: 'auto', maxWidth: '1280px' }}>
+      <Grid container spacing={{ xs: 6, sm: 8 }}>
+        <Grid
+          className="printHide"
+          item
+          sx={{
+            minHeight: {xs: 'auto', sm: '24.25em'}
+          }}
+          xs={12}
+          sm={6}
+        >
+          <Swimmers
+            selectedSwimmer={selectedSwimmer}
+            setSelectedSwimmer={(id) => setSelectedSwimmer(findSelectedSwimmer(id, swimmers))}
+            swimmers={swimmers}
+          />
+        </Grid>
+        <Grid
+          className="printHide"
+          item
+          sx={{
+            minHeight: {xs: 'auto', sm: '24.25em'}
+          }}
+          xs={12}
+          sm={6}
+        >
+          <SwimEvents swimEvents={swimEvents} selectedSwimmer={selectedSwimmer} />
+        </Grid>
+        <Grid item xs={12}>
+          <SwimmerMeetEntries
+            swimmers={swimmers}
+            swimEvents={swimEvents}
+            swimmerMeetEntries={swimmerMeetEntries}
+          />
+        </Grid>
       </Grid>
-      <Grid className="printHide" item style={{ minHeight: '24.25em' }} xs={6}>
-        <SwimEvents swimEvents={swimEvents} selectedSwimmer={selectedSwimmer} />
-      </Grid>
-      <Grid item xs={12}>
-        <SwimmerMeetEntries
-          swimmers={swimmers}
-          swimEvents={swimEvents}
-          swimmerMeetEntries={swimmerMeetEntries}
-        />
-      </Grid>
-    </Grid>
+    </div>
   );
 };
