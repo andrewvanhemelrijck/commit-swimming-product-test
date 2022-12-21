@@ -2,3 +2,13 @@ body {
   padding: 10px;
   font-family: sans-serif;
 }
+
+@media print {
+  @page {
+    size: auto;
+    margin: 0mm;
+  }
+  .printHide {
+    display: none !important;
+  }
+}

@@ -36,14 +36,14 @@ export default App = () => {
   
   return (
     <Grid container spacing={2}>
-      <Grid item xs={6}>
+      <Grid className="printHide" item xs={6}>
         <Swimmers
           selectedSwimmer={selectedSwimmer}
           setSelectedSwimmer={(id) => setSelectedSwimmer(findSelectedSwimmer(id, swimmers))}
           swimmers={swimmers}
         />
       </Grid>
-      <Grid item xs={6}>
+      <Grid className="printHide" item xs={6}>
         <SwimEvents swimEvents={swimEvents} selectedSwimmer={selectedSwimmer} />
       </Grid>
       <Grid item xs={12}>

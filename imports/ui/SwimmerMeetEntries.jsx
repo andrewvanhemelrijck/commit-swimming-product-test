@@ -2,6 +2,7 @@ import React from 'react';
 import { useTracker } from 'meteor/react-meteor-data';
 import { SwimmerMeetEntriesCollection } from '../api/swimmerMeetEntries';
 import {
+  Button,
   IconButton,
   Table,
   TableBody,
@@ -34,9 +35,18 @@ export default SwimmerMeetEntries = ({ swimmers, swimEvents }) => {
 
   return (
     <>
-      <h2>Entry Report</h2>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <h2>Entry Report</h2>
+        <Button
+          className="printHide"
+          onClick={()=> window.print()}
+          variant="outlined"
+        >
+          Print
+        </Button>
+      </div>
       <TableContainer>
-        <Table>
+        <Table size="small">
           <TableHead>
             <TableRow>
               <TableCell />
